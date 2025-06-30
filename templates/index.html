@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Health Prediction Dashboard</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <div class="content">
+      <div class="form-box">
+        <h1>Health Prediction</h1>
+        <p class="subtitle">Select a model and enter the required medical info below.</p>
+
+        <div class="form-group">
+          <label for="diseaseType">Choose Prediction Model:</label>
+          <select id="diseaseType">
+            <option value="">-- Select a Model --</option>
+            <option value="common">🧠 Common Disease</option>
+            <option value="heart">❤️ Heart Disease</option>
+            <option value="diabetes">🍬 Diabetes</option>
+            <option value="parkinsons">🧠 Parkinson's Disease</option>
+            <option value="liver">🧫 Liver Disease</option>
+            <option value="lung">🫁 Lung Disease (Image)</option>
+            
+          </select>
+        </div>
+
+        <!-- Common Disease -->
+        <form action="/predict" method="POST" class="section" id="commonForm">
+          <label>Describe your symptoms:</label>
+          <input type="text" name="symptoms" placeholder="e.g. fever, cough, fatigue" required />
+          <button type="submit">Predict Common Disease</button>
+        </form>
+
+        <!-- Heart Disease -->
+        <form action="/predict-heart-disease" method="POST" class="section" id="heartForm">
+          <div class="form-grid">
+            <input type="number" name="age" placeholder="Age" required />
+            <input type="number" name="sex" placeholder="Sex (1=M, 0=F)" required />
+            <input type="number" name="cp" placeholder="Chest Pain Type (0–3)" required />
+            <input type="number" name="trestbps" placeholder="Resting BP" required />
+            <input type="number" name="chol" placeholder="Cholesterol" required />
+            <input type="number" name="fbs" placeholder="Fasting Blood Sugar > 120 (1=Y, 0=N)" required />
+            <input type="number" name="restecg" placeholder="Rest ECG (0–2)" required />
+            <input type="number" name="thalach" placeholder="Max Heart Rate" required />
+            <input type="number" name="exang" placeholder="Exercise Angina (1=Y, 0=N)" required />
+            <input type="number" step="any" name="oldpeak" placeholder="Oldpeak" required />
+            <input type="number" name="slope" placeholder="Slope" required />
+            <input type="number" name="ca" placeholder="CA (0–4)" required />
+            <input type="number" name="thal" placeholder="Thal (1–3)" required />
+          </div>
+          <button type="submit">Predict Heart Disease</button>
+        </form>
+
+        <!-- Diabetes -->
+        <form action="/predict-diabetes" method="POST" class="section" id="diabetesForm">
+          <div class="form-grid">
+            <input type="number" name="pregnancies" placeholder="Pregnancies" required />
+            <input type="number" name="glucose" placeholder="Glucose" required />
+            <input type="number" name="bloodpressure" placeholder="Blood Pressure" required />
+            <input type="number" name="skinthickness" placeholder="Skin Thickness" required />
+            <input type="number" name="insulin" placeholder="Insulin" required />
+            <input type="number" step="any" name="bmi" placeholder="BMI" required />
+            <input type="number" step="any" name="dpf" placeholder="Diabetes Pedigree Function" required />
+            <input type="number" name="age" placeholder="Age" required />
+          </div>
+          <button type="submit">Predict Diabetes</button>
+        </form>
+
+        <!-- Parkinson's Disease -->
+        <form action="/predict-parkinsons" method="POST" class="section" id="parkinsonsForm">
+          <h3>Enter 22 Parkinson's Features</h3>
+          <div class="form-grid">
+            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+              <!-- f0 to f21 -->
+              <!-- Paste manually if needed -->
+              <!-- Example below -->
+              {% for i in range(22) %}
+              <input type="number" step="any" name="f{{ i }}" placeholder="Feature f{{ i }}" required />
+              {% endfor %}
+            </div>
+          </div>
+          <button type="submit">Predict Parkinson's</button>
+        </form>
+
+        <!-- Liver Disease -->
+        <form action="/predict-liver" method="POST" class="section" id="liverForm">
+          <div class="form-grid">
+            <input type="number" name="age" placeholder="Age" required />
+            <input type="number" name="gender" placeholder="Gender (1=M, 0=F)" required />
+            <input type="number" step="any" name="total_bilirubin" placeholder="Total Bilirubin" required />
+            <input type="number" step="any" name="direct_bilirubin" placeholder="Direct Bilirubin" required />
+            <input type="number" step="any" name="alk_phosphate" placeholder="Alkaline Phosphatase" required />
+            <input type="number" step="any" name="alamine_aminotransferase" placeholder="Alamine Aminotransferase" required />
+            <input type="number" step="any" name="aspartate_aminotransferase" placeholder="Aspartate Aminotransferase" required />
+            <input type="number" step="any" name="total_proteins" placeholder="Total Proteins" required />
+            <input type="number" step="any" name="albumin" placeholder="Albumin" required />
+            <input type="number" step="any" name="ag_ratio" placeholder="A/G Ratio" required />
+          </div>
+          <button type="submit">Predict Liver Disease</button>
+        </form>
+
+        <!-- Lung Disease -->
+        <form action="/predict-lung-disease" method="POST" enctype="multipart/form-data" class="section" id="lungForm">
+          <label>Upload Lung X-ray Image:</label>
+          <input type="file" name="image" accept="image/*" required />
+          <button type="submit">Predict Lung Disease</button>
+        </form>
+
+        <!-- Breast Cancer -->
+        <form action="/predict-breast-cancer" method="POST" class="section" id="breastForm">
+          <h3>Enter 64 Breast Cancer Features</h3>
+          <div class="form-grid">
+            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+              {% for i in range(64) %}
+              <input type="number" step="any" name="b{{ i }}" placeholder="Feature b{{ i }}" required />
+              {% endfor %}
+            </div>
+          </div>
+          <button type="submit">Predict Breast Cancer</button>
+        </form>
+      </div>
+
+      <div class="image-box">
+        <img src="/static/illustration.png" alt="Health Illustration" />
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const selector = document.getElementById("diseaseType");
+    const forms = {
+      common: document.getElementById("commonForm"),
+      heart: document.getElementById("heartForm"),
+      diabetes: document.getElementById("diabetesForm"),
+      parkinsons: document.getElementById("parkinsonsForm"),
+      liver: document.getElementById("liverForm"),
+      lung: document.getElementById("lungForm"),
+      breast: document.getElementById("breastForm")
+    };
+
+    selector.addEventListener("change", () => {
+      Object.values(forms).forEach(f => f.classList.remove("visible"));
+      const selectedForm = forms[selector.value];
+      if (selectedForm) selectedForm.classList.add("visible");
+    });
+  </script>
+</body>
+</html>

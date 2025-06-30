@@ -1,0 +1,239 @@
+/* --- Universal Settings & Font Import --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* --- Body & Background --- */
+/* --- Body & Background --- OPTION 1: ANIMATED GRADIENT --- */
+body, html {
+    font-family: 'Poppins', "Segoe UI", sans-serif;
+    /* A richer, more vibrant gradient */
+    background: linear-gradient(-45deg, #0f172a, #1e293b, #075262, #034e70);
+    background-size: 400% 400%; /* Makes the gradient larger than the screen */
+    animation: gradientFlow 15s ease infinite; /* The animation magic */
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  /* Keyframes define the animation steps */
+  @keyframes gradientFlow {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  /* REMOVE the old @keyframes fadeInBG rule, it's not needed with this approach */
+
+/* --- Main Layout Containers --- */
+.container {
+  max-width: 1100px;
+  width: 100%;
+}
+
+.content {
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping on smaller screens */
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px;
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Left Side (Forms & Results) --- */
+.form-box {
+  color: white;
+  width: 100%;
+  max-width: 550px; /* Max width for the form area */
+  padding-right: 20px;
+  flex-grow: 1; /* Allows it to grow and fill space */
+}
+
+.form-box h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.form-box .subtitle {
+  font-size: 1.2rem;
+  color: #c7d8e2;
+  margin-bottom: 2rem;
+}
+
+/* --- Form Specifics & Input Styling --- */
+.form-group {
+    margin-bottom: 25px;
+}
+
+label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 8px;
+  color: #e9ecef;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #00aaff;
+    box-shadow: 0 0 15px rgba(0, 170, 255, 0.3);
+}
+
+select {
+    cursor: pointer;
+}
+
+button {
+  background: linear-gradient(to right, #00c6ff, #0072ff);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 14px 30px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  margin-top: 20px;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 157, 255, 0.4);
+}
+
+/* --- Form Visibility Logic --- */
+.section {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.section.visible {
+  display: block;
+  opacity: 1;
+}
+
+/* Grid layout for complex forms */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px 20px;
+}
+
+/* --- Right Side (Image) --- */
+.image-box {
+  width: 40%;
+  min-width: 300px; /* Ensures image is not too small */
+  flex-shrink: 0; /* Prevents image from shrinking too much */
+}
+
+.image-box img {
+  width: 100%;
+  height: auto;
+  animation: float 6s ease-in-out infinite;
+  border-radius: 35px;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+/* --- Result Page Specific Styling --- */
+.result-highlight {
+  background: linear-gradient(to right, #ff6b6b, #feca57);
+  padding: 25px 30px;
+  color: white;
+  font-size: clamp(1.5rem, 4vw, 2.5rem); /* Responsive font size */
+  font-weight: 700;
+  border-radius: 15px;
+  margin-bottom: 30px;
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.1);
+  text-align: center;
+  animation: pulse 2.5s infinite;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 107, 107, 0.5); }
+  50% { transform: scale(1.03); box-shadow: 0 0 30px rgba(255, 107, 107, 0.7); }
+  100% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 107, 107, 0.5); }
+}
+
+a.back-button {
+  display: inline-block;
+  text-decoration: none;
+  padding: 12px 25px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+a.back-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 900px) {
+    .content {
+        flex-direction: column;
+        padding: 30px;
+    }
+    .form-box {
+        width: 100%;
+        max-width: none;
+        padding-right: 0;
+        margin-bottom: 40px;
+    }
+    .image-box {
+        width: 60%;
+        max-width: 350px;
+    }
+}
+
+@media (max-width: 600px) {
+    .form-grid {
+        grid-template-columns: 1fr; /* Stack grid items on small screens */
+    }
+    .form-box h1 {
+        font-size: 2.2rem;
+    }
+    .form-box .subtitle {
+        font-size: 1rem;
+    }
+}
